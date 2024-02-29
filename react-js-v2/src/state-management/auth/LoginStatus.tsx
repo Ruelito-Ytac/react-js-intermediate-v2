@@ -1,18 +1,17 @@
-import React, { useContext } from "react";
-import AuthContext from "./authContext";
+import React from "react";
+import useAuthStore from "./auth_store";
 
-const useAuth = () => useContext(AuthContext);
 
 const LoginStatus = () => {
-    const { username, dispatch } = useAuth();
+    const { username, login, logout } = useAuthStore();
 
     return (
         <React.Fragment>
-            { !username && <button type="button" onClick={ () => dispatch({ type: "LOGIN", username: "Ruelito Ytac" }) }>Login</button> }
+            { !username && <button type="button" onClick={ () => login("Ruelito Ytac") }>Login</button> }
             { username &&
                 <>
                     <span>{ username }</span>
-                    <button type="button" onClick={ () => dispatch({ type: "LOGOUT" }) }>Logout { username }</button>
+                    <button type="button" onClick={ () => logout() }>Logout { username }</button>
                 </>
             }
         </React.Fragment>

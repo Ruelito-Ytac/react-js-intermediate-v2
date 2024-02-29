@@ -1,26 +1,17 @@
-import React, { useReducer } from "react";
+import React from "react";
+import useCounterStore from "./store";
 
-interface Action {
-    type: "INCREMENT" | "DECREMENT" | "RESET";
-}
-const counterReducer = (state: number, action: Action): number => {
-    if(action.type === "INCREMENT") return state + 1;
-    if(action.type === "DECREMENT") return (state > 0) ? state - 1 : 0;
-    if(action.type === "RESET") return 0;
-
-    return state;
-} 
 
 const Counter = () => {
-    const [value, dispatch] = useReducer(counterReducer, 0);
+    const { counter, increment, reset, decrement } = useCounterStore();
 
     return (
         <React.Fragment>
-            <span>Counter: { value }</span>
+            <span>Counter: { counter }</span>
 
-            <button type="button" onClick={ () => dispatch({ type: "INCREMENT" }) }>Increment</button>
-            <button type="button" onClick={ () => dispatch({ type: "DECREMENT" }) }>Decrement</button>
-            <button type="button" onClick={ () => dispatch({ type: "RESET" }) }>Reset</button>
+            <button type="button" onClick={ () => increment() }>Increment</button>
+            <button type="button" onClick={ () => decrement() }>Decrement</button>
+            <button type="button" onClick={ () => reset() }>Reset</button>
         </React.Fragment>
     )
 }
